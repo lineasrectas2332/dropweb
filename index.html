@@ -30,14 +30,13 @@
             left: 50%;
             transform: translateX(-50%);
             width: 92%;
-            max-width: 780px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: solid 1px #30cfd0;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #30cfd0;
             border-radius: 9999px;
-            padding: 0.75rem 1.5rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
+            padding: 1rem 2rem;
             backdrop-filter: blur(10px);
+            z-index: 1000;
         }
         .navbar.scrolled {
             background-color: rgba(0, 0, 0, 0.8);
@@ -47,7 +46,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+        }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
         .logo {
             font-family: 'Orbitron', sans-serif;
@@ -63,57 +66,88 @@
             display: flex;
             gap: 2rem;
             list-style: none;
-            margin: 0 auto;
-            padding: 0 2rem;
+            margin: 0;
+            padding: 0;
         }
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            position: relative;
-            transition: color 0.3s ease, transform 0.3s ease;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
             letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #30cfd0, #330867);
-            z-index: -1;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-            border-radius: 5px;
+            transition: color 0.3s ease;
         }
         .nav-link:hover {
-            color: #000;
-        }
-        .nav-link:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
+            color: #30cfd0;
         }
         .talk-button {
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             background: linear-gradient(45deg, #30cfd0, #330867);
-            color: rgb(0, 0, 0);
+            color: #fff;
             border: none;
             border-radius: 9999px;
+            font-family: 'Orbitron', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
         }
         .talk-button:hover {
-            box-shadow: 0 0 15px rgba(48, 207, 208, 0.7);
             transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(48, 207, 208, 0.5);
         }
         .hamburger {
             display: none;
+            background: none;
+            border: none;
+            color: #30cfd0;
+            cursor: pointer;
+        }
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            border-radius: 0 0 1.5rem 1.5rem;
+            padding: 1rem 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .mobile-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: slideDown 0.5s ease;
+        }
+        .mobile-menu .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+        }
+        @media (max-width: 768px) {
+            .nav-content {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .mobile-menu .talk-button {
+                display: inline-block;
+                margin-top: 1rem;
+            }
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .hero {
             height: 100vh;
@@ -189,17 +223,33 @@
             transform: translateY(-3px);
             box-shadow: 0 0 20px rgba(48, 207, 208, 0.7);
         }
-        .features {
+        .section {
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            color: #30cfd0;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .services-grid, .portfolio-grid, .process-grid, .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
-        .feature-card {
+        .service-card, .portfolio-item, .process-step, .team-member {
             background: rgba(13, 25, 48, 0.8);
             border-radius: 15px;
             padding: 2rem;
@@ -208,14 +258,143 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(48, 207, 208, 0.3);
         }
-        .feature-card:hover {
+        .service-card:hover, .portfolio-item:hover, .process-step:hover, .team-member:hover {
             transform: translateY(-10px);
             box-shadow: 0 0 20px rgba(48, 207, 208, 0.5);
         }
-        .feature-icon {
-            font-size: 2.5rem;
+        .service-icon, .process-icon {
+            width: 64px;
+            height: 64px;
             margin-bottom: 1rem;
+        }
+        .portfolio-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        .testimonial {
+            background: rgba(13, 25, 48, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 207, 208, 0.3);
+        }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .testimonial-author {
+            font-weight: bold;
             color: #30cfd0;
+        }
+        .faq-item {
+            background: rgba(13, 25, 48, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 207, 208, 0.3);
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #30cfd0;
+            margin-bottom: 0.5rem;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .blog-post {
+            background: rgba(13, 25, 48, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(48, 207, 208, 0.5);
+        }
+        .blog-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-content {
+            padding: 1.5rem;
+        }
+        .blog-title {
+            color: #30cfd0;
+            margin-bottom: 0.5rem;
+        }
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(45deg, rgba(48, 207, 208, 0.1), rgba(51, 8, 103, 0.1));
+        }
+        .cta-title {
+            font-size: 2.5rem;
+            color: #30cfd0;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .footer {
+            background: linear-gradient(to right, rgba(48, 207, 208, 0.1), rgba(51, 8, 103, 0.1));
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(48, 207, 208, 0.1) 0%, rgba(51, 8, 103, 0.1) 100%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+        .footer-column h3 {
+            color: #30cfd0;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+        }
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-column ul li a:hover {
+            color: #30cfd0;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(48, 207, 208, 0.3);
         }
         @keyframes gradientMove {
             0% { background-position: 0% 50%; }
@@ -235,68 +414,22 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hamburger {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                border: none;
-                cursor: pointer;
-                width: 40px;
-                height: 40px;
-                padding: 0.5rem;
-                border-radius: 50%;
-                color: #30cfd0;
-                transition: all 0.3s ease;
-            }
-            .mobile-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: rgba(0, 0, 0, 0.95);
-                border-radius: 0 0 1.5rem 1.5rem;
-                padding: 1rem 0;
-                text-align: center;
-                opacity: 0;
-                transform: translateY(-10px);
-                transition: opacity 0.3s ease, transform 0.3s ease;
-                backdrop-filter: blur(10px);
-            }
-            .mobile-menu.active {
-                display: block;
-                opacity: 1;
-                transform: translateY(0);
-                animation: slideDown 0.5s ease;
-            }
-            .mobile-menu .nav-link {
-                display: block;
-                padding: 0.75rem 1rem;
-                margin: 0.5rem 0;
-            }
-            .talk-button:not(.mobile-menu .talk-button) {
-                display: none;
-            }
             .tituloo {
                 font-size: 3rem;
             }
             .subtitle {
                 font-size: 1.2rem;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+            .footer-column {
+                width: 100%;
             }
         }
     </style>
@@ -306,67 +439,238 @@
    
     <nav class="navbar">
         <div class="navbar-container">
-            <div class="logo">Drop Web</div>
+            <a href="#" class="logo">Drop Web</a>
            
-            <ul class="nav-links">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Acerca</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Servicios</a>
-                </li>
-            </ul>
-
-            <button class="talk-button">Hablemos</button>
-
-            <button class="hamburger" aria-label="Menu">
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="#inicio" class="nav-link">INICIO</a></li>
+                    <li><a href="#servicios" class="nav-link">SERVICIOS</a></li>
+                    <li><a href="#portafolio" class="nav-link">PORTAFOLIO</a></li>
+                    <li><a href="#contacto" class="nav-link">CONTACTO</a></li>
+                </ul>
+               
+                <button class="talk-button">Hablemos</button>
+            </div>
+   
+            <button class="hamburger">
                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/>
                 </svg>
             </button>
         </div>
-
+        
         <div class="mobile-menu">
-            <a href="#" class="nav-link">Inicio</a>
-            <a href="#" class="nav-link">Contacto</a>
-            <a href="#" class="nav-link">Acerca</a>
-            <a href="#" class="nav-link">Servicios</a>
+            <a href="#inicio" class="nav-link">INICIO</a>
+            <a href="#servicios" class="nav-link">SERVICIOS</a>
+            <a href="#portafolio" class="nav-link">PORTAFOLIO</a>
+            <a href="#contacto" class="nav-link">CONTACTO</a>
             <button class="talk-button">Hablemos</button>
         </div>
     </nav>
    
-    <section class="hero">
+    <section id="inicio" class="hero">
         <div class="hero-content">
-            <h2 class="welcome">BIENVENIDO A</h2>
+            <h2 class="welcome">welcome to</h2>
             <h1 class="tituloo">DROP WEB</h1>
             <p class="subtitle">Transformamos ideas en experiencias digitales extraordinarias</p>
             <a href="#contacto" class="cta-button">Comienza tu proyecto</a>
         </div>
     </section>
 
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3>Diseño Futurista</h3>
-            <p>Creamos interfaces vanguardistas que proyectan tu marca hacia el futuro digital.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🚀</div>
-            <h3>Desarrollo Innovador</h3>
-            <p>Implementamos soluciones técnicas avanzadas con las últimas tecnologías web.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3>Experiencia Inmersiva</h3>
-            <p>Creamos sitios web que cautivan en cualquier dispositivo y dimensión.</p>
+    <section id="servicios" class="section">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="/placeholder.svg?height=64&width=64" alt="Diseño Web" class="service-icon">
+                <h3>Diseño Web</h3>
+                <p>Creamos diseños únicos y atractivos que reflejan la identidad de tu marca.</p>
+            </div>
+            <div class="service-card">
+                <img src="/placeholder.svg?height=64&width=64" alt="Desarrollo Frontend" class="service-icon">
+                <h3>Desarrollo Frontend</h3>
+                <p>Implementamos interfaces de usuario interactivas y responsivas.</p>
+            </div>
+            <div class="service-card">
+                <img src="/placeholder.svg?height=64&width=64" alt="Desarrollo Backend" class="service-icon">
+                <h3>Desarrollo Backend</h3>
+                <p>Construimos sistemas robustos y escalables para potenciar tu aplicación.</p>
+            </div>
+            <div class="service-card">
+                <img src="/placeholder.svg?height=64&width=64" alt="Desarrollo de Apps" class="service-icon">
+                <h3>Desarrollo de Apps</h3>
+                <p>Creamos aplicaciones móviles nativas y multiplataforma.</p>
+            </div>
         </div>
     </section>
+
+    <section id="portafolio" class="section">
+        <h2 class="section-title">Nuestro Portafolio</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="/placeholder.svg?height=200&width=300" alt="Proyecto 1">
+                <h3>Proyecto Futurista 1</h3>
+                <p>Breve descripción del proyecto y tecnologías utilizadas.</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="/placeholder.svg?height=200&width=300" alt="Proyecto 2">
+                <h3>Proyecto Innovador 2</h3>
+                <p>Breve descripción del proyecto y tecnologías utilizadas.</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="/placeholder.svg?height=200&width=300" alt="Proyecto 3">
+                <h3>Proyecto Vanguardista 3</h3>
+                <p>Breve descripción del proyecto y tecnologías utilizadas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="proceso" class="section">
+        <h2 class="section-title">Nuestro Proceso</h2>
+        <div class="process-grid">
+            <div class="process-step">
+                <img src="/placeholder.svg?height=64&width=64" alt="Descubrimiento" class="process-icon">
+                <h3>Descubrimiento</h3>
+                <p>Analizamos tus necesidades y objetivos para crear una estrategia personalizada.</p>
+            </div>
+            <div class="process-step">
+                <img src="/placeholder.svg?height=64&width=64" alt="Diseño" class="process-icon">
+                <h3>Diseño</h3>
+                <p>Creamos prototipos y diseños que capturan la esencia de tu visión.</p>
+            </div>
+            <div class="process-step">
+                <img src="/placeholder.svg?height=64&width=64" alt="Desarrollo" class="process-icon">
+                <h3>Desarrollo</h3>
+                <p>Implementamos tu proyecto utilizando las últimas tecnologías y mejores prácticas.</p>
+            </div>
+            <div class="process-step">
+                <img src="/placeholder.svg?height=64&width=64" alt="Lanzamiento" class="process-icon">
+                <h3>Lanzamiento</h3>
+                <p>Realizamos pruebas exhaustivas y lanzamos tu proyecto al mundo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonios" class="section">
+        <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+        <div class="testimonial">
+            <p class="testimonial-text">"DROP WEB transformó nuestra presencia en línea. Su enfoque innovador y atención al detalle superaron nuestras expectativas."</p>
+            <p class="testimonial-author">- María González, CEO de TechFuture</p>
+        </div>
+        <div class="testimonial">
+            <p class="testimonial-text">"Trabajar con DROP WEB fue una experiencia increíble. Su equipo es altamente profesional y entregaron resultados excepcionales."</p>
+            <p class="testimonial-author">- Carlos Rodríguez, Fundador de InnovateMX</p>
+        </div>
+    </section>
+
+    <section id="equipo" class="section">
+        <h2 class="section-title">Nuestro Equipo</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="/placeholder.svg?height=150&width=150" alt="Miembro del equipo 1">
+                <h3>Ana Martínez</h3>
+                <p>Diseñadora UX/UI</p>
+            </div>
+            <div class="team-member">
+                <img src="/placeholder.svg?height=150&width=150" alt="Miembro del equipo 2">
+                <h3>Luis Sánchez</h3>
+                <p>Desarrollador Full Stack</p>
+            </div>
+            <div class="team-member">
+                <img src="/placeholder.svg?height=150&width=150" alt="Miembro del equipo 3">
+                <h3>Elena Torres</h3>
+                <p>Experta en Marketing Digital</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <div class="faq-item">
+            <p class="faq-question">¿Cuánto tiempo toma desarrollar un sitio web?</p>
+            <p>El tiempo de desarrollo varía según la complejidad del proyecto, pero generalmente oscila entre 4 y 12 semanas.</p>
+        </div>
+        <div class="faq-item">
+            <p class="faq-question">¿Ofrecen mantenimiento después del lanzamiento?</p>
+            <p>Sí, ofrecemos planes de mantenimiento para asegurar que tu sitio web permanezca actualizado y funcionando perfectamente.</p>
+        </div>
+        <div class="faq-item">
+            <p class="faq-question">¿Pueden ayudar con el posicionamiento en buscadores (SEO)?</p>
+            <p>Absolutamente. Implementamos las mejores prácticas de SEO en todos nuestros proyectos y ofrecemos servicios adicionales de optimización.</p>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <h2 class="section-title">Últimas Noticias y Recursos</h2>
+        <div class="blog-grid">
+            <div class="blog-post">
+                <img src="/placeholder.svg?height=200&width=300" alt="Blog post 1">
+                <div class="blog-content">
+                    <h3 class="blog-title">Tendencias de Diseño Web para 2025</h3>
+                    <p>Descubre las últimas tendencias que están definiendo el futuro del diseño web...</p>
+                    <a href="#" class="cta-button">Leer más</a>
+                </div>
+            </div>
+            <div class="blog-post">
+                <img src="/placeholder.svg?height=200&width=300" alt="Blog post 2">
+                <div class="blog-content">
+                    <h3 class="blog-title">Cómo Mejorar el Rendimiento de tu Sitio Web</h3>
+                    <p>Aprende técnicas avanzadas para optimizar la velocidad y el rendimiento de tu sitio...</p>
+                    <a href="#" class="cta-button">Leer más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="cta-section">
+        <h2 class="cta-title">¿Listo para Llevar tu Proyecto al Siguiente Nivel?</h2>
+        <p>Contáctanos hoy y comencemos a construir el futuro de tu presencia digital.</p>
+        <a href="#" class="cta-button">Solicitar Consulta Gratuita</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#portafolio">Proyectos</a></li>
+                    <li><a href="#equipo">Equipo</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Servicios</h3>
+                <ul>
+                    <li><a href="#servicios">Diseño Web</a></li>
+                    <li><a href="#servicios">Desarrollo Frontend</a></li>
+                    <li><a href="#servicios">Desarrollo Backend</a></li>
+                    <li><a href="#servicios">SEO</a></li>
+                    <li><a href="#servicios">Marketing Digital</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Email: info@dropweb.com</li>
+                    <li>Teléfono: +1 234 567 890</li>
+                    <li>Dirección: Calle Futurista 123, Ciudad Innovación</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Redes Sociales</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 DROP WEB. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
@@ -388,32 +692,56 @@
             retina_detect: true
         });
 
-        const navbar = document.querySelector('.navbar');
-        const menuToggle = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.mobile-menu');
-        const links = document.querySelectorAll('.mobile-menu a');
-       
-        if (navbar && menuToggle && navLinks) {
-            window.addEventListener('scroll', () => {
-                navbar.classList.toggle('scrolled', window.scrollY > 50);
-            });
-       
-            menuToggle.addEventListener('click', () => {
-                const isOpen = navLinks.classList.toggle('active');
-                menuToggle.classList.toggle('active');
-       
-                menuToggle.innerHTML = isOpen
-                    ? '<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'
-                    : '<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/></svg>';
-            });
-       
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.navbar');
+            const menuToggle = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+           
+            if (navbar && menuToggle && mobileMenu) {
+                window.addEventListener('scroll', () => {
+                    navbar.classList.toggle('scrolled', window.scrollY > 50);
                 });
+           
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+           
+                    menuToggle.innerHTML = mobileMenu.classList.contains('active')
+                        ? '<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'
+                        : '<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/></svg>';
+                });
+           
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                        menuToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/></svg>';
+                    });
+                });
+            }
+
+            // Scroll animation for sections
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
-        }
+        });
     </script>
 </body>
 </html>
